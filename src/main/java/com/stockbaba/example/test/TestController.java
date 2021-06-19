@@ -1,4 +1,4 @@
-package com.stockbaba.example.controller;
+package com.stockbaba.example.test;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -35,7 +35,7 @@ public class TestController {
 		
 		if(!isLogin)
 			getKiteSession();
-		return new ObjectMapper().writeValueAsString(k.getInstruments().parallelStream().map(Instrument::getName).collect(Collectors.toList()));
+		return new ObjectMapper().writeValueAsString(kiteSdk.getInstruments().parallelStream().map(Instrument::getName).collect(Collectors.toList()));
 //		List<Instrument> list = kiteSdk.getInstruments();
 //		list.forEach(System.out::println);
 //		Optional<Instrument> optionalInstrument = list.parallelStream().filter(k->{return stockName.equalsIgnoreCase(k.getName());}).findFirst();
@@ -50,9 +50,9 @@ public class TestController {
 	}
 	
 	private void getKiteSession() throws JSONException, IOException, KiteException {
-		kiteSdk = new KiteConnect("gb12zoxden0y1rs4");
-		kiteSdk.setUserId("XL7587");
-		User user = kiteSdk.generateSession("7gEn0kKrV844G1kQKJtWPVrkYaARPSkh", "o1ndeftf7rizatfo9djnz5y8nf7rp2zn");
+		kiteSdk = new KiteConnect("gogn");
+		kiteSdk.setUserId("gaga");
+		User user = kiteSdk.generateSession("agaga", "agag");
 		kiteSdk.setAccessToken(user.accessToken);
 		kiteSdk.setPublicToken(user.publicToken);
 		isLogin = true;
