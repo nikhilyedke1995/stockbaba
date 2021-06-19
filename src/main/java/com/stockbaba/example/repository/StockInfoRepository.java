@@ -10,5 +10,5 @@ import com.stockbaba.example.entity.StockInfo;
 @Repository
 public interface StockInfoRepository extends JpaRepository<StockInfo, Long>{
 	
-	List<StockInfo> findByNameContaining(String infix);
+	List<StockInfo> findByNameContainingIgnoreCase(String infix);
 }
