@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 
 import org.json.JSONException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
@@ -26,6 +28,8 @@ public class DatabaseFeeder {
 	@Autowired
 	private StockInfoRepository stockInfoRepo;
 	
+	private static Logger logger = LoggerFactory.getLogger(DatabaseFeeder.class);
+	
 	@PostConstruct
 	public void saveDataToStockInfoDB() {
 		Function<Instrument,StockInfo> func = (t->{
@@ -35,9 +39,9 @@ public class DatabaseFeeder {
 		});
 		List<StockInfo> list = null;
 		try {
-			System.out.println("getting data from zerodha");
+			logger.info("starting data retrieval");
 			list = connect.getInstruments().parallelStream().map(func).collect(Collectors.toList());
-			System.out.println("data retrieval done!!");
+			logger.info("data retrieval done!!");
 		} catch (JSONException | IOException | KiteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
