@@ -31,8 +31,6 @@ public class TestController {
 	@GetMapping("/stock")
 	public String getStockDetailsYahooTest(@RequestParam(value = "stockName")String stockName) throws IOException, InterruptedException, JSONException, KiteException, ParseException {
 
-		
-		
 		if(!isLogin)
 			getKiteSession();
 		return new ObjectMapper().writeValueAsString(kiteSdk.getInstruments().parallelStream().map(Instrument::getName).collect(Collectors.toList()));
