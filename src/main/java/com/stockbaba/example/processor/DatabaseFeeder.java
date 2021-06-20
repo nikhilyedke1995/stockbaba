@@ -40,11 +40,13 @@ public class DatabaseFeeder {
 		List<StockInfo> list = null;
 		try {
 			logger.info("starting data retrieval");
-			list = connect.getInstruments().parallelStream().map(func).collect(Collectors.toList());
+			list = connect.getInstruments().parallelStream().
+					filter(i->"BSE".equalsIgnoreCase(i.getExchange())||"NSE".equalsIgnoreCase(i.getExchange()))
+					.map(func).collect(Collectors.toList());
 			logger.info("data retrieval done!!");
 		} catch (JSONException | IOException | KiteException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Exception while retrieving data from kite ", e);
 		}
 		if(list!=null)
 		stockInfoRepo.saveAll(list);
