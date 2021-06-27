@@ -9,6 +9,7 @@ import javax.management.ServiceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +46,7 @@ public class StockChartController {
 		logger.info("result list size " + list.size());
 		if(list==null || list.size()==0)
 			throw new StockDetailsNotFoundException("No details found for this query");
-		return ResponseEntity.ok(list);
+		return new ResponseEntity<List<StockInfo>>(list,HttpStatus.OK);
 	}
 	
 	@GetMapping("/stockDetails")
